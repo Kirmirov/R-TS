@@ -1,25 +1,24 @@
-
-import { NavLink } from 'react-router-dom';
-import classes from './Header.module.scss';
+import { useDispatch } from 'react-redux';
+import { HeaderContainer, HeaderHeader, HeaderLink, HeaderToggle } from './Header.styled';
+import { toggleThemeAction } from '../../feature/themeList';
 export const Header = () => {
-	const getActiveClass = ({ isActive }: { isActive: boolean }): string => {
-		return isActive ? `${classes.active} ${classes.link}` : classes.link;
-	}
-	
+	const dispatch = useDispatch();
+
 	return (
-		<header className={classes.header}>
-			<div className={classes.container}>
-				<NavLink to="/"
-					  className={getActiveClass}
-				>
+		<HeaderHeader>
+			<HeaderContainer>
+				<HeaderLink to="/">
 					ToDo
-				</NavLink>
-				<NavLink to="/list"
-					  className={getActiveClass}
-				>
+				</HeaderLink>
+				<HeaderLink to="/list">
 					List
-				</NavLink>
-			</div>
-		</header>
+				</HeaderLink>
+				<HeaderToggle>
+					<button onClick={() => dispatch(toggleThemeAction())}>
+						Toggle
+					</button>
+				</HeaderToggle>
+			</HeaderContainer>
+		</HeaderHeader>
 	);
 };

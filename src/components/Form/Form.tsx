@@ -1,31 +1,39 @@
-import { useState } from 'react';
-import classes from './Form.module.scss';
+import { RootState } from '../../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateTitle } from '../../feature/formTitle';
+import { FormControl, FormBlock, FormField, FormLabel, FormWrapper } from './Form.styled';
+
+import strPlusIcon from '../../assets/images/plus.png';
 export const Form = ({ createToDoItem }: { createToDoItem: Function }) => {
 
-	const [strTitle, setTitle] = useState<string>('');
+	const strTitle:string  	= useSelector((state: RootState) => state.formTitle.strTitle);
+	const dispatch:Function	= useDispatch();
 
-	const formSubmit = (event: React.SyntheticEvent) => {
+	const formSubmit = (event: React.SyntheticEvent):void => {
 		event.preventDefault();
 		if (strTitle) {
 			createToDoItem(strTitle);
-			setTitle('');
+			dispatch(updateTitle(''));
 		}
 	};
 
+	const changeTitle = (event: React.ChangeEvent<HTMLInputElement>):void => {
+		dispatch(updateTitle(event.target.value));
+	};
+
 	return (
-		<div className={classes.wrapper}>
-			<form action="#" 
-				  className={classes.form}
-				  onSubmit={formSubmit}
+		<FormWrapper>
+			<FormBlock  action="#"
+				  		onSubmit={formSubmit}
 			>
-				<label>
-					<input  onChange={(e) => setTitle(e.target.value)}
-							value={strTitle}
-							type="text"
+				<FormLabel>
+					<FormField  onChange={changeTitle}
+								value={strTitle}
+								type="text"
 					/>
-					<button></button>
-				</label>
-			</form>
-		</div>
+					<FormControl $iconURL={strPlusIcon}/>
+				</FormLabel>
+			</FormBlock>
+		</FormWrapper>
 	)
 };

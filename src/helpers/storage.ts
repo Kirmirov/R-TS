@@ -2,8 +2,8 @@ import { RootState } from "../store";
 
 export const saveToLocalStorage = (state: RootState) => {
 	try {
-		const appState = JSON.stringify(state);
-		localStorage.setItem('appState', appState);
+		const strAppState:string = JSON.stringify(state);
+		localStorage.setItem('AppState', strAppState);
 	} catch (e) {
 		console.warn(e);
 	}
@@ -11,11 +11,11 @@ export const saveToLocalStorage = (state: RootState) => {
 
 export const loadFromLocalStorage = () => {
 	try {
-		const appState = localStorage.getItem('appState');
-		if (!appState) 
+		const strAppState:string | null = localStorage.getItem('AppState');
+		if (!strAppState) 
 			return undefined;
 		else
-			return JSON.parse(appState);
+			return JSON.parse(strAppState);
 	} catch (e) {
 		console.warn(e);
 		return undefined;

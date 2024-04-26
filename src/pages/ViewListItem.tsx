@@ -12,7 +12,7 @@ export const ViewListItem = () => {
 
 	useEffect(() => {
 		const pSearchItem: ToDoItem | undefined = aToDoList.find((pItem: ToDoItem) => {
-			return pItem.id === Number(id);
+			return pItem.id === id;
 		});
 
 		if (pSearchItem)

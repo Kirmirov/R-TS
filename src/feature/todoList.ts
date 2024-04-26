@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { ToDoItem } from "../models/todo-item";
+import { v4 as uuid } from 'uuid';
 
 export interface TodoState {
 	aToDoItems: ToDoItem[]
@@ -14,16 +15,16 @@ export const todoSlice = createSlice({
 	name: 'todoList',
 	initialState,
 	reducers: {
-		createAction: (state, action: PayloadAction<string>) => {
+		createAction: (state: TodoState, action: PayloadAction<string>) => {
 			const pNewToDoItem: ToDoItem = {
-				id: state.aToDoItems.length,
+				id: uuid(),
 				title: action.payload,
 				isDone: false
 			};
 
 			state.aToDoItems = [...state.aToDoItems, pNewToDoItem];
 		},
-		updateAction: (state, action: PayloadAction<ToDoItem>) => {
+		updateAction: (state: TodoState, action: PayloadAction<ToDoItem>) => {
 			const aNewToDoItems = state.aToDoItems.map((pItem) => {
 				if (pItem.id === action.payload.id) 
 					pItem.isDone = !pItem.isDone;
@@ -33,9 +34,9 @@ export const todoSlice = createSlice({
 
 			state.aToDoItems = aNewToDoItems;
 		},
-		deleteAction: (state, action: PayloadAction<ToDoItem>) => {
+		deleteAction: (state: TodoState, action: PayloadAction<string>) => {
 			const aNewToDoItems = state.aToDoItems.filter((pItem) => {
-				return pItem.id !== action.payload.id;
+				return pItem.id !== action.payload;
 			});
 	
 			state.aToDoItems = aNewToDoItems;

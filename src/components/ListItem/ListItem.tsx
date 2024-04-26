@@ -1,13 +1,12 @@
-import { NavLink } from "react-router-dom";
 import { ToDoItem } from "../../models/todo-item";
-import classes from "./ListItem.module.scss";
+import { ListItemLink } from "./ListItem.styled";
 
 export const ListItem = ({pListItem}: {pListItem: ToDoItem}) => {	
 	return (
-		<NavLink  className={`${classes.link} ${pListItem.isDone ? classes.done : classes.notDone}`}
-			   	  to={`/list/${pListItem.id}`}
+		<ListItemLink 	$status={pListItem.isDone}
+			   	  		to={`/list/${pListItem.id}`}
 		>
 			{pListItem.title}
-		</NavLink>
+		</ListItemLink>
 	)
 };

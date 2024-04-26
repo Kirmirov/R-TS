@@ -1,6 +1,6 @@
 import { ToDoListItem } from "./ToDoListItem/ToDoListItem";
-import classes from './ToDoList.module.scss';
 import { ToDoItem } from "../../models/todo-item";
+import { ToDoListCompleted, ToDoListContainer, ToDoListFailed } from "./ToDoList.styled";
 
 export const ToDoList = (
 	{ aToDoItems, fUpdateToDoItem, fDeleteToDoItem }
@@ -8,12 +8,12 @@ export const ToDoList = (
 	{ aToDoItems: Array<ToDoItem>; fUpdateToDoItem: Function; fDeleteToDoItem: Function;}
 ) => {
 	const renderToDoList = (a_aFilteredArray: Array<ToDoItem>) => {
-		return a_aFilteredArray.map((pItem: ToDoItem, nItemIndex: number) => {
+		return a_aFilteredArray.map((pItem: ToDoItem) => {
 			return (
 				<ToDoListItem item={pItem}
 							  fDeleteToDoItem={fDeleteToDoItem}
 							  fUpdateToDoItem={fUpdateToDoItem} 
-							  key={nItemIndex}
+							  key={pItem.id}
 				/>
 			)
 		})
@@ -26,13 +26,13 @@ export const ToDoList = (
 	};
 
 	return (
-		<div className={classes.container}>
-			<ul className={`${classes.list} ${classes.failed}`}>
+		<ToDoListContainer>
+			<ToDoListFailed>
 				{ renderToDoList(filterByIsDone(false)) }
-			</ul>
-			<ul className={`${classes.list} ${classes.completed}`}>
+			</ToDoListFailed>
+			<ToDoListCompleted>
 				{ renderToDoList(filterByIsDone(true)) }
-			</ul>
-		</div>
+			</ToDoListCompleted>
+		</ToDoListContainer>
 	)
 };
