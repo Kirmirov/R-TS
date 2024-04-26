@@ -2,8 +2,8 @@ import { RootState } from '../../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateTitle } from '../../feature/formTitle';
 import { FormControl, FormBlock, FormField, FormLabel, FormWrapper } from './Form.styled';
-
 import strPlusIcon from '../../assets/images/plus.png';
+
 export const Form = ({ createToDoItem }: { createToDoItem: Function }) => {
 
 	const strTitle:string  	= useSelector((state: RootState) => state.formTitle.strTitle);

@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { HeaderContainer, HeaderHeader, HeaderLink, HeaderToggle } from './Header.styled';
 import { toggleThemeAction } from '../../feature/themeList';
+
 export const Header = () => {
 	const dispatch = useDispatch();
 

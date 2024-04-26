@@ -4,6 +4,7 @@ import { ToDoItem } from "../models/todo-item";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import { createAction, updateAction, deleteAction } from "../feature/todoList";
+import { toast, Zoom } from 'react-toastify';
 
 export const ToDoListPage = () => {
 	const aToDoList:ToDoItem[] 	= useSelector((state: RootState) => state.todoList.aToDoItems);
@@ -11,14 +12,17 @@ export const ToDoListPage = () => {
 
 	const createToDoItem = (a_strTitle: string) => {
 		dispatch(createAction(a_strTitle)); 
+		toast.success('Новая задача создана!', {transition: Zoom});
 	};
 
 	const updateToDoItem = (a_pUpdateToDoItem: ToDoItem) => {
 		dispatch(updateAction(a_pUpdateToDoItem));
+		toast.info('Задача изменена!', {transition: Zoom});
 	};
 
 	const deleteToDoItem = (a_nToDoItemID: string) => {
 		dispatch(deleteAction(a_nToDoItemID));
+		toast.warn('Задача удалена!', {transition: Zoom});
 	};
 
 	return (
